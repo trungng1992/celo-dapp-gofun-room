@@ -51,8 +51,8 @@ contract BookRoom {
         _;
     }
     
-    modifier isOwnerRoom(uint _index) {
-        require(msg.sender == rooms[_index].ownerRoomAddress, "You are not a onwer room");
+    modifier isNotOwner(uint _index) {
+        require(msg.sender != rooms[_index].ownerRoomAddress, "You are  an onwer room! Can not rent");
         _;
     }
     // constructor
@@ -62,7 +62,7 @@ contract BookRoom {
     
     function addRoom(
         string memory _nameRoom,
-        string memory _imageRoom,
+        string[] memory _imageRoom,
         string memory _description,
         string memory _location,
         string memory _services,
@@ -70,7 +70,7 @@ contract BookRoom {
         uint _size,
         uint _price,
         uint _capacity,
-        uint _serving
+        uint256 _dateAvailable
     ) public {
         
         require(_price > 0, "Please enter a valid price");
@@ -88,16 +88,17 @@ contract BookRoom {
             _size,
             _price,
             false,
-            block.timestamp
+            _dateAvailable
         );
         
         roomLength++;
     }
     
-    function getInformationRoom(unit _index) public view returns (
+    function getInformationRoom(uint _index) public view returns (
         address payable,
         string memory,
         string[] memory,
+        string memory,
         string memory,
         string memory,
         string memory,
@@ -106,28 +107,30 @@ contract BookRoom {
         uint,
         uint
     ) {
-        return {
-            rooms[_index].owner,
-            rooms[_index].nameRoom,
-            rooms[_index].urlImage,
-            rooms[_index].description,
-            rooms[_index].services,
-            rooms[_index].location,
-            rooms[_index].category,
-            rooms[_index].isBooking,
-            rooms[_index].capacity,
-            rooms[_index].size,
-            rooms[_index].price
-        }
+        Room storage room = rooms[_index];
+
+        return (
+            room.ownerRoomAddress,
+            room.nameRoom,
+            room.imageURL,
+            room.description,
+            room.services,
+            room.location,
+            room.category,
+            room.isBooking,
+            room.capacity,
+            room.size,
+            room.price
+        );
     }
 
 
-    function rentRoom(unit _index) public payable{
+    function rentRoom(uint _index) public payable isNotOwner(_index){
         require(
           IERC20Token(cUsdTokenAddress).transferFrom(
             msg.sender,
-            products[_index].owner,
-            products[_index].price
+            rooms[_index].ownerRoomAddress,
+            rooms[_index].price
           ),
           "Transfer failed."
         );

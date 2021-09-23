@@ -64,7 +64,7 @@ const Navbar = props => {
                 <h1>GoFunRoom</h1>
               </Link>
             </div>
-            <ul className="nav-links show-nav" onclick={click} onClick={handleClick}>
+            <ul className="nav-links show-nav" onClick={click} onClick={handleClick}>
               {props.address == undefined
               ?
               <li className="reserve"><Link to="">Connect Wallet</Link>

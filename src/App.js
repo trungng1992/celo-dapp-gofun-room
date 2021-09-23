@@ -122,12 +122,18 @@ function App() {
     _dateAvailable
   ) => {
     try {
+      console.log(_imageURL);
       const price = new BigNumber(_price).shiftedBy(ERC20_DECIMALS).toString();
+
+      const arrImageURL = _imageURL.split(",");
+      const dateTimeStamp = Date.parse(_dateAvailable)/1000;
+
+      console.log(dateTimeStamp);
 
       await contract.methods
         .addRoom(
           _name,
-          _imageURL,
+          arrImageURL,
           _description,
           _location,
           _services,
@@ -135,7 +141,7 @@ function App() {
           _size,
           price,
           _capacity,
-          _dateAvailable
+          dateTimeStamp
         )
         .send({from: address});
       getRooms()
@@ -199,7 +205,9 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/rooms/" component={Rooms} />
-        <Route exact path="/add/" component={Add} />
+        <Route exact path="/add/">
+          <Add addToRoom={addToRoom}/>
+        </Route>
         <Route exact path="/rooms/:zebra" component={SingleRoom} />
         <Route component={Error} />
       </Switch>
