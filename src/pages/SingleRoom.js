@@ -22,6 +22,7 @@ export default class SingleRoom extends Component {
     window.scrollTo(0, 0);
 
     const room = this.props.rooms[this.props.match.params.id]; 
+    const key = this.props.match.params.id;
 
     if (!room) {
       return (
@@ -50,6 +51,11 @@ export default class SingleRoom extends Component {
 
     console.log(availableDate);
     let _availableDate = new Date(availableDate*1000);
+
+    const bookHandler = (event) => {
+      event.preventDefault();
+      this.props.rentRoom(room.price/1000000000000000000, key);
+    }
 
     return (
       <>
@@ -89,7 +95,7 @@ export default class SingleRoom extends Component {
             </article>
           </div>
           <div className="single-room-booking">
-            <Link to="" className="btn-primary">
+            <Link to="" className="btn-primary" onClick={bookHandler}>
                 Booking
             </Link>
           </div>

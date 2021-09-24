@@ -25,7 +25,7 @@ import erc20 from "./contract/erc20.abi.json";
 const ERC20_DECIMALS = 18;
 
 // const contractAddress = "0x86702e5343EFb9F4c1e24172F832dEc598A099ef";
-const contractAddress = "0xB5576210DCf7747261F50FA801D86Fb828B052c8";
+const contractAddress = "0xcc0d27dc35753e2Cbbfac2E5002140C556b31104";
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
 
 function App() {
@@ -58,7 +58,7 @@ function App() {
         // web3 events
         let options = {
           fromBlock: 0,
-          address: ["0xB5576210DCf7747261F50FA801D86Fb828B052c8"], //Only get events from specific addresses
+          address: ["0xcc0d27dc35753e2Cbbfac2E5002140C556b31104"], //Only get events from specific addresses
           topics: [], //What topics to subscribe to
         };
 
@@ -96,11 +96,11 @@ function App() {
           imageURL: p[2],
           description: p[3],
           services: p[4],
-          category: p[6],
-          availableDate: p[7],
-          capacity: p[8],
-          size: p[9],
-          isBooking: p[7],
+          category: p[5],
+          availableDate: p[6],
+          capacity: p[7],
+          size: p[8],
+          isBooking: p[9],
           price: p[10],
         });
       });
@@ -142,20 +142,19 @@ function App() {
       console.log(dateTimeStamp);
       console.log(typeof(dateTimeStamp));
 
-      // await contract.methods
-      //   .addRoom(
-      //     _name,
-      //     arrImageURL,
-      //     _description,
-      //     _location,
-      //     _services,
-      //     _category,
-      //     _size,
-      //     price,
-      //     _capacity,
-      //     dateTimeStamp
-      //   )
-      //   .send({from: address});
+      await contract.methods
+        .addRoom(
+          _name,
+          arrImageURL,
+          _description,
+          _services,
+          _category,
+          _size,
+          price,
+          _capacity,
+          dateTimeStamp
+        )
+        .send({from: address});
       getRooms()
     } catch (error) {
       console.log(error)
@@ -186,6 +185,7 @@ function App() {
 
   const editRoom = async(_date, _image, _price , _index) => {
     try {
+      console.log(_image);
       const price = new BigNumber(_price).shiftedBy(ERC20_DECIMALS).toString();
       const arrImageURL = _image.split(",");
 
@@ -245,7 +245,7 @@ function App() {
           <Add addToRoom={addToRoom}/>
         </Route>
         <Route exact path="/rooms/:id" render={(props) => 
-          <SingleRoom {...props} key={props.match.params.id} rooms={rooms}/>
+          <SingleRoom {...props} key={props.match.params.id} rooms={rooms} rentRoom={rentRoom}/>
         }/>
 
         <Route exact path="/edit/:id" render={(props) => 

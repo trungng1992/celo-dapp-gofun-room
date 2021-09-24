@@ -16,7 +16,6 @@ const EditDate = props => {
     const [image, setImage] = useState('')
     const [price, setPrice] = useState('')
     const [date, setDate] = useState(new Date())
-    
 
     if (!room) {
         return (
@@ -28,6 +27,8 @@ const EditDate = props => {
           </div>
         )
       }
+    
+    
 
     // const {
     //     name,
@@ -39,11 +40,25 @@ const EditDate = props => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        props.editRoom(key, date, image, price);
+        if (image == "") {
+            setImage(room.imageURL.join(","));
+        }
+
+        console.log(room.imageURL.join(","));
+
+        if (price == "") {
+            setPrice(room.price / 1000000000000000000);
+        }
+
+        console.log(price);
+        console.log(date)
+        props.editRoom(date, image, price, key);
         setImage('');
         setPrice('');
         setDate('')
       }
+
+
 
     // setName(room.name)
 
@@ -55,11 +70,11 @@ const EditDate = props => {
                 <div className="filter-room">
                     <div className="form-group">
                         <label htmlFor="name">Room Name</label>
-                        <input name="name" className="add-room-input form-control" value={room.name} onChange={(e)=>setName(e.target.value)} required/>
+                        <input name="name" className="add-room-input form-control" defaultValue={room.name} onChange={(e)=>setName(e.target.value)} required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="image">Image</label>
-                        <input name="image" className="add-room-input form-control" required value={room.imageURL} onChange={(e)=>setImage(e.target.value)}/>
+                        <input name="image" className="add-room-input form-control" required defaultValue={room.imageURL.join(",")} onChange={(e)=>setImage(e.target.value)}/>
                     </div>
                 </div>
                 
@@ -70,7 +85,7 @@ const EditDate = props => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="price">Price</label>
-                        <input type="number" name="price" id="price" onChange={(e)=>setPrice(e.target.value)} value={room.price/1000000000000000000} className="add-room-input form-control" />
+                        <input type="number" name="price" id="price" onChange={(e)=>setPrice(e.target.value)} defaultValue={room.price/1000000000000000000} className="add-room-input form-control" />
                     </div>
                 </div>
                 <div className="filter-room-btn">

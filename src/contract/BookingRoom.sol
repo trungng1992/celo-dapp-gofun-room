@@ -122,8 +122,15 @@ contract BookRoom {
         );
     }
     
-    function editAvailableDate(uint _index, uint256 timestamp) public {
-        rooms[_index].dayAvailable = timestamp;
+    function editAvailableDate(
+        uint _index, 
+        uint256 _timestamp,
+        string[] memory _imageRoom,
+        uint _price
+    ) public {
+        rooms[_index].dayAvailable = _timestamp;
+        rooms[_index].imageURL = _imageRoom;
+        rooms[_index].price = _price;
     }
 
 
