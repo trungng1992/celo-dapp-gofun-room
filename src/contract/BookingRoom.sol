@@ -22,7 +22,6 @@ contract BookRoom {
         string[] imageURL;
         string description;
         string services;
-        string location;
         string category;
         uint capacity;
         uint size;
@@ -64,7 +63,6 @@ contract BookRoom {
         string memory _nameRoom,
         string[] memory _imageRoom,
         string memory _description,
-        string memory _location,
         string memory _services,
         string memory _category,
         uint _size,
@@ -82,7 +80,6 @@ contract BookRoom {
             _imageRoom,
             _description,
             _services,
-            _location,
             _category,
             _capacity,
             _size,
@@ -101,11 +98,12 @@ contract BookRoom {
         string memory,
         string memory,
         string memory,
-        string memory,
+        uint256,
+        uint,
+        uint,
         bool,
-        uint,
-        uint,
         uint
+        
     ) {
         Room storage room = rooms[_index];
 
@@ -115,13 +113,17 @@ contract BookRoom {
             room.imageURL,
             room.description,
             room.services,
-            room.location,
             room.category,
-            room.isBooking,
+            room.dayAvailable,
             room.capacity,
             room.size,
+            room.isBooking,
             room.price
         );
+    }
+    
+    function editAvailableDate(uint _index, uint256 timestamp) public {
+        rooms[_index].dayAvailable = timestamp;
     }
 
 

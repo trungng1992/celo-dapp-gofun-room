@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import RoomContainer from '../components/RoomContainer'
 
 
-const Rooms = () => {
+const Rooms = props => {
   return (
     <>
       <Hero hero="roomsHero">
@@ -15,7 +15,7 @@ const Rooms = () => {
         </Link>
         </Banner>
       </Hero>
-      <RoomContainer />
+      <RoomContainer rooms={props.rooms}/>
     </>
   );
 };

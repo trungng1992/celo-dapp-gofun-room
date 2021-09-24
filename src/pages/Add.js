@@ -56,6 +56,7 @@ const Add = props => {
                             <option value="Wifi">Wifi</option>
                             <option value="Breakfast">Breakfast</option>
                             <option value="Smoking">Smoking</option>
+                            <option value="Smoking">Pet</option>
                         </select>
                     </div>
                     <div className="form-group">

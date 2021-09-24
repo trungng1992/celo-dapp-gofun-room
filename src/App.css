@@ -541,6 +541,13 @@ h1 {
   grid-template-columns: 1fr;
   margin: 2rem auto;
 }
+
+.single-room-booking {
+  text-align: center;
+  margin: 2rem 0;
+  padding-bottom: 1em;
+}
+
 .desc,
 .info {
   margin: 1rem 0;

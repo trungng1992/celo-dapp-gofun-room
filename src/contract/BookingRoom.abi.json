@@ -23,11 +23,6 @@
             },
             {
                 "internalType": "string",
-                "name": "_location",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
                 "name": "_services",
                 "type": "string"
             },
@@ -58,6 +53,34 @@
             }
         ],
         "name": "addRoom",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_timestamp",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string[]",
+                "name": "_imageRoom",
+                "type": "string[]"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_price",
+                "type": "uint256"
+            }
+        ],
+        "name": "editAvailableDate",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -103,24 +126,24 @@
                 "type": "string"
             },
             {
-                "internalType": "string",
+                "internalType": "uint256",
                 "name": "",
-                "type": "string"
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
             },
             {
                 "internalType": "bool",
                 "name": "",
                 "type": "bool"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
             },
             {
                 "internalType": "uint256",

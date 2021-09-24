@@ -2,25 +2,27 @@ import React, { Component } from "react";
 import defaultBcg from "../images/ocean-room1.jpeg";
 import Banner from "../components/Banner";
 import { Link } from "react-router-dom";
-import { RoomContext } from "../context";
 import StyledHero from "../components/StyledHero";
+
+
+import room2 from "../images/details-1.jpeg";
+import room3 from "../images/details-3.jpeg";
+import room4 from "../images/details-4.jpeg";
 
 export default class SingleRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      zebra: this.props.match.params.zebra,
       defaultBcg
     };
   }
 
-  static contextType = RoomContext;
-  // lifecycle method
-  // componentDidMount() {}
+  
   render() {
     window.scrollTo(0, 0);
-    const { getRoom } = this.context;
-    const room = getRoom(this.state.zebra);
+
+    const room = this.props.rooms[this.props.match.params.id]; 
+
     if (!room) {
       return (
         <div className="error">
@@ -29,21 +31,25 @@ export default class SingleRoom extends Component {
             Back to rooms
           </Link>
         </div>
-      );
+      )
     }
+
     const {
       name,
       description,
       capacity,
+      services,
       size,
       price,
-      extras,
-      breakfast,
-      pets,
-      images
+      imageURL,
+      availableDate,
     } = room;
+    
+    console.log(room);
+    const [mainImg, ...defaultImg] = imageURL;
 
-    const [mainImg, ...defaultImg] = images;
+    console.log(availableDate);
+    let _availableDate = new Date(availableDate*1000);
 
     return (
       <>
@@ -54,13 +60,12 @@ export default class SingleRoom extends Component {
             </Link>
           </Banner>
         </StyledHero>
-        <section className="single-room">
+         <section className="single-room">
 
           <div className="single-room-images">
-            {defaultImg.map((item, index) => {
-              return <img key={index} src={item} alt={name} />;
-            })}
-
+              <img key="1" src={room2} alt="room1" />
+              <img key="2" src={room3} alt="room3" />
+              <img key="3" src={room4} alt="room4" />
           </div>
           <div className="single-room-info">
             <article className="desc">
@@ -69,24 +74,25 @@ export default class SingleRoom extends Component {
             </article>
             <article className="info">
               <h3>Info</h3>
-              <h6>Price : ${price} USD</h6>
+              <h6>Price : ${price/1000000000000000000} USD</h6>
               <h6>Size : {size} sq. ft.</h6>
               <h6>
                 max capacity :{" "}
                 {capacity > 1 ? `${capacity} people` : `${capacity} person`}
               </h6>
-              <h6>{pets ? "pets allowed" : "no pets allowed"}</h6>
-              <h6>{breakfast && "breakfast included"}</h6>
+              <h6>
+                services : {services} included
+              </h6>
+              <h6>
+                date available: {_availableDate.toLocaleDateString("en-US")}
+              </h6>
             </article>
           </div>
-        </section>
-        <section className="room-extras">
-          <h6>extras</h6>
-          <ul className="extras">
-            {extras.map((item, index) => {
-              return <li key={index}>- {item}</li>;
-            })}
-          </ul>
+          <div className="single-room-booking">
+            <Link to="" className="btn-primary">
+                Booking
+            </Link>
+          </div>
         </section>
       </>
     );

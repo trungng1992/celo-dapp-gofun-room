@@ -5,13 +5,15 @@ import "./App.css";
 import Home from "./pages/Home";
 import Rooms from "./pages/Rooms";
 import SingleRoom from "./pages/SingleRoom";
+import EditDate from "./pages/EditDate";
 import Add from "./pages/Add";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import {
   Route,
-  Switch
+  Switch,
+  BrowserRouter as Router
 } from "react-router-dom"; /**Switch will render the first route child that matches */
 
 import Web3 from "web3";
@@ -23,7 +25,7 @@ import erc20 from "./contract/erc20.abi.json";
 const ERC20_DECIMALS = 18;
 
 // const contractAddress = "0x86702e5343EFb9F4c1e24172F832dEc598A099ef";
-const contractAddress = "0x5c6fd96BA92a7c54fc6aA12Ea73C343A26899562";
+const contractAddress = "0xB5576210DCf7747261F50FA801D86Fb828B052c8";
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
 
 function App() {
@@ -32,10 +34,10 @@ function App() {
   const [address, setAddress] = useState(null);
   const [kit, setKit] = useState(null);
   const [cUSDBalance, setcUSDBalance] = useState(0);
+  const [rooms, setRoom] = useState([]);
 
 
   const connectCeloWallet = async () => {
-    
     if (window.celo) {
       try {
         await window.celo.enable();
@@ -56,7 +58,7 @@ function App() {
         // web3 events
         let options = {
           fromBlock: 0,
-          address: ["0x5c6fd96BA92a7c54fc6aA12Ea73C343A26899562"], //Only get events from specific addresses
+          address: ["0xB5576210DCf7747261F50FA801D86Fb828B052c8"], //Only get events from specific addresses
           topics: [], //What topics to subscribe to
         };
 
@@ -64,11 +66,11 @@ function App() {
           if (!err) console.log(event);
         });
 
-        // subscription.on('data', event => {
-        //   if (contract) {
-        //   getFoods()
-        //   }
-        // })
+        subscription.on('data', event => {
+          if (contract) {
+            getRooms()
+          }
+        })
 
 
       } catch (error) {
@@ -94,11 +96,11 @@ function App() {
           imageURL: p[2],
           description: p[3],
           services: p[4],
-          location: p[5],
           category: p[6],
-          isBooking: p[7],
+          availableDate: p[7],
           capacity: p[8],
           size: p[9],
+          isBooking: p[7],
           price: p[10],
         });
       });
@@ -106,7 +108,16 @@ function App() {
     }
 
     const rooms = await Promise.all(_rooms);
-    // setRoom(rooms)
+    setRoom(rooms)
+  }
+
+  const getOneRoom = async (_index) => {
+    try {
+      let p = await contract.methods.getInformationRoom(_index).call();
+      return p
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const addToRoom = async (
@@ -126,24 +137,25 @@ function App() {
       const price = new BigNumber(_price).shiftedBy(ERC20_DECIMALS).toString();
 
       const arrImageURL = _imageURL.split(",");
-      const dateTimeStamp = Date.parse(_dateAvailable)/1000;
+      const dateTimeStamp = parseInt(Date.parse(_dateAvailable)/1000);
 
       console.log(dateTimeStamp);
+      console.log(typeof(dateTimeStamp));
 
-      await contract.methods
-        .addRoom(
-          _name,
-          arrImageURL,
-          _description,
-          _location,
-          _services,
-          _category,
-          _size,
-          price,
-          _capacity,
-          dateTimeStamp
-        )
-        .send({from: address});
+      // await contract.methods
+      //   .addRoom(
+      //     _name,
+      //     arrImageURL,
+      //     _description,
+      //     _location,
+      //     _services,
+      //     _category,
+      //     _size,
+      //     price,
+      //     _capacity,
+      //     dateTimeStamp
+      //   )
+      //   .send({from: address});
       getRooms()
     } catch (error) {
       console.log(error)
@@ -172,6 +184,21 @@ function App() {
     }
   }
 
+  const editRoom = async(_date, _image, _price , _index) => {
+    try {
+      const price = new BigNumber(_price).shiftedBy(ERC20_DECIMALS).toString();
+      const arrImageURL = _image.split(",");
+
+      const dateTimeStamp = Date.parse(_date)/1000;
+
+      console.log(dateTimeStamp);
+      // await contract.methods.editAvailableDate(_index, dateTimeStamp, arrImageURL, price).send({from: address});
+      getRooms()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     connectCeloWallet();
   }, []);
@@ -183,6 +210,12 @@ function App() {
       console.log("no kit or address");
     }
   }, [kit, address]);
+
+  useEffect(() => {
+    if (contract) {
+      getRooms();
+    }
+  }, [contract]);
 
   const getBalance = async () => {
     const balance = await kit.getTotalBalance(address);
@@ -197,6 +230,7 @@ function App() {
   };
 
   return (
+    <Router>
     <>
       <Navbar cUSDBalance={cUSDBalance}
         celoBalance={celoBalance}
@@ -204,15 +238,24 @@ function App() {
         connectCeloWallet={connectCeloWallet}/>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/rooms/" component={Rooms} />
+        <Route exact path="/rooms/">
+          <Rooms rooms={rooms} />
+        </Route>
         <Route exact path="/add/">
           <Add addToRoom={addToRoom}/>
         </Route>
-        <Route exact path="/rooms/:zebra" component={SingleRoom} />
+        <Route exact path="/rooms/:id" render={(props) => 
+          <SingleRoom {...props} key={props.match.params.id} rooms={rooms}/>
+        }/>
+
+        <Route exact path="/edit/:id" render={(props) => 
+          <EditDate {...props} editRoom={editRoom} rooms={rooms}/>
+        }/>
         <Route component={Error} />
       </Switch>
       <Footer />
     </>
+    </Router>
   );
 }
 
