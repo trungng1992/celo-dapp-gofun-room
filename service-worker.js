@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/celo-dapp-gofun-room/precache-manifest.6b036ce33c44b1b8acf0f62759e01bd6.js"
+  "/celo-dapp-gofun-room/precache-manifest.3c869aedc020be6991d486669a5f26d3.js"
 );
 
 self.addEventListener('message', (event) => {

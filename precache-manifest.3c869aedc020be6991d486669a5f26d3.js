@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a7ad7819be5ba122dff0988024bfb5f3",
+    "revision": "8d6661fc6057d14c091291bcd52ac359",
     "url": "/celo-dapp-gofun-room/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/celo-dapp-gofun-room/static/css/2.716093f4.chunk.css"
   },
   {
-    "revision": "4aafdbf55a82202dafe5",
+    "revision": "3449a6c902c6558cab45",
     "url": "/celo-dapp-gofun-room/static/css/main.e2969be8.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/celo-dapp-gofun-room/static/js/2.4f51d4c3.chunk.js"
   },
   {
-    "revision": "4aafdbf55a82202dafe5",
-    "url": "/celo-dapp-gofun-room/static/js/main.b06e1b88.chunk.js"
+    "revision": "3449a6c902c6558cab45",
+    "url": "/celo-dapp-gofun-room/static/js/main.f1c65b3c.chunk.js"
   },
   {
     "revision": "36b4be68ef33c823cafe",
