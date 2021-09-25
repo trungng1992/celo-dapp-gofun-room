@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/celo-dapp-gofun-room/static/css/main.d17a2d23.chunk.css",
+    "main.js": "/celo-dapp-gofun-room/static/js/main.10b775bf.chunk.js",
+    "main.js.map": "/celo-dapp-gofun-room/static/js/main.10b775bf.chunk.js.map",
+    "runtime~main.js": "/celo-dapp-gofun-room/static/js/runtime~main.c38dc722.js",
+    "runtime~main.js.map": "/celo-dapp-gofun-room/static/js/runtime~main.c38dc722.js.map",
+    "static/css/2.7f2699be.chunk.css": "/celo-dapp-gofun-room/static/css/2.7f2699be.chunk.css",
+    "static/js/2.7d5f89ea.chunk.js": "/celo-dapp-gofun-room/static/js/2.7d5f89ea.chunk.js",
+    "static/js/2.7d5f89ea.chunk.js.map": "/celo-dapp-gofun-room/static/js/2.7d5f89ea.chunk.js.map",
+    "index.html": "/celo-dapp-gofun-room/index.html",
+    "precache-manifest.59f1d96e75bf98a7c7d9c39ead2e578f.js": "/celo-dapp-gofun-room/precache-manifest.59f1d96e75bf98a7c7d9c39ead2e578f.js",
+    "service-worker.js": "/celo-dapp-gofun-room/service-worker.js",
+    "static/css/2.7f2699be.chunk.css.map": "/celo-dapp-gofun-room/static/css/2.7f2699be.chunk.css.map",
+    "static/css/main.d17a2d23.chunk.css.map": "/celo-dapp-gofun-room/static/css/main.d17a2d23.chunk.css.map",
+    "static/media/defaultBcg.jpeg": "/celo-dapp-gofun-room/static/media/defaultBcg.6113d505.jpeg",
+    "static/media/details-1.jpeg": "/celo-dapp-gofun-room/static/media/details-1.33ab9f1e.jpeg",
+    "static/media/details-3.jpeg": "/celo-dapp-gofun-room/static/media/details-3.7345b9f6.jpeg",
+    "static/media/details-4.jpeg": "/celo-dapp-gofun-room/static/media/details-4.7569a316.jpeg",
+    "static/media/App.css": "/celo-dapp-gofun-room/static/media/room-2.fc3e910e.jpeg",
+    "static/media/ocean-room1.jpeg": "/celo-dapp-gofun-room/static/media/ocean-room1.20021e3a.jpeg",
+    "static/media/view.jpeg": "/celo-dapp-gofun-room/static/media/view.f30e53c8.jpeg"
+  }
+}
