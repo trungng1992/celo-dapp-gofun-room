@@ -27,16 +27,6 @@ const EditDate = props => {
           </div>
         )
       }
-    
-    
-
-    // const {
-    //     name,
-    //     price,
-    //     imageURL,
-    //     availableDate,
-    // } = room;
-      
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -56,10 +46,7 @@ const EditDate = props => {
         setImage('');
         setPrice('');
         setDate('')
-      }
-
-
-
+    }
     // setName(room.name)
 
     return (

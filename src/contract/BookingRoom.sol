@@ -122,6 +122,28 @@ contract BookRoom {
         );
     }
     
+    function getHistory(uint _index) public view returns (
+        address payable,
+        address,
+        string memory,
+        uint256,
+        bool,
+        uint
+    ) {
+        Room storage room = rooms[_index];
+
+        return (
+            room.ownerRoomAddress,
+            room.renterAddress,
+            room.nameRoom,
+            room.dayAvailable,
+            room.isBooking,
+            room.price
+        );
+    }
+    
+    
+    
     function editAvailableDate(
         uint _index, 
         uint256 _timestamp,

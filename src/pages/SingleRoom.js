@@ -35,6 +35,16 @@ export default class SingleRoom extends Component {
       )
     }
 
+    if (!room.isBook == true) {
+      return (
+        <div className="error">
+          <h3>Uh Oh! This room is booked!</h3>
+          <Link to="/rooms" className="btn-primary-back">
+            Back to rooms
+          </Link>
+        </div>
+      )
+    }
     const {
       name,
       description,

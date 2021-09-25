@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Rooms from "./pages/Rooms";
 import SingleRoom from "./pages/SingleRoom";
 import EditDate from "./pages/EditDate";
+import History from "./pages/History";
 import Add from "./pages/Add";
 
 import Navbar from "./components/Navbar";
@@ -25,7 +26,7 @@ import erc20 from "./contract/erc20.abi.json";
 const ERC20_DECIMALS = 18;
 
 // const contractAddress = "0x86702e5343EFb9F4c1e24172F832dEc598A099ef";
-const contractAddress = "0xcc0d27dc35753e2Cbbfac2E5002140C556b31104";
+const contractAddress = "0xBEd21357A22AB95c38d22Fc03696FcA02396Af7c";
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
   const [kit, setKit] = useState(null);
   const [cUSDBalance, setcUSDBalance] = useState(0);
   const [rooms, setRoom] = useState([]);
+  const [historyRoom, setHistoryRoom] = useState([]);
 
 
   const connectCeloWallet = async () => {
@@ -58,7 +60,7 @@ function App() {
         // web3 events
         let options = {
           fromBlock: 0,
-          address: ["0xcc0d27dc35753e2Cbbfac2E5002140C556b31104"], //Only get events from specific addresses
+          address: ["0xBEd21357A22AB95c38d22Fc03696FcA02396Af7c"], //Only get events from specific addresses
           topics: [], //What topics to subscribe to
         };
 
@@ -111,6 +113,30 @@ function App() {
     setRoom(rooms)
   }
 
+  const getHistory = async function() {
+    let _roomLength = await contract.methods.getRoomBookingLength().call();
+
+    var _rooms = [];
+    for (let i=0; i < _roomLength; i++) {
+      let _room = new Promise(async (resolve, reject) => {
+        let p = await contract.methods.getHistory(i).call();
+        resolve({
+          index: i,
+          owner: p[0],
+          renter: p[1],
+          name: p[2],
+          availableDate: p[3],
+          isBooking: p[4],
+          price: p[5],
+        });
+      });
+      _rooms.push(_room)
+    }
+
+    const rooms = await Promise.all(_rooms);
+    setHistoryRoom(rooms);
+  }
+
   const getOneRoom = async (_index) => {
     try {
       let p = await contract.methods.getInformationRoom(_index).call();
@@ -156,6 +182,7 @@ function App() {
         )
         .send({from: address});
       getRooms()
+      getHistory()
     } catch (error) {
       console.log(error)
     }
@@ -178,6 +205,7 @@ function App() {
 
       getBalance();
       getRooms();
+      getHistory();
     } catch (error) {
       console.log(error)
     }
@@ -214,6 +242,7 @@ function App() {
   useEffect(() => {
     if (contract) {
       getRooms();
+      getHistory();
     }
   }, [contract]);
 
@@ -247,9 +276,8 @@ function App() {
         <Route exact path="/rooms/:id" render={(props) => 
           <SingleRoom {...props} key={props.match.params.id} rooms={rooms} rentRoom={rentRoom}/>
         }/>
-
-        <Route exact path="/edit/:id" render={(props) => 
-          <EditDate {...props} editRoom={editRoom} rooms={rooms}/>
+        <Route exact path="/history" render={(props) => 
+          <History {...props} historyRoom={historyRoom}/>
         }/>
         <Route component={Error} />
       </Switch>

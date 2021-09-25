@@ -8,8 +8,6 @@ export default function Room({ key, room }) {
   let divStyle = {
     width: "calc(0px + 100%)",
   }
-  console.log(key);
-  console.log(room);
   return (
     <div>
       <div className="room-name-container">
@@ -33,11 +31,11 @@ export default function Room({ key, room }) {
   );
 }
 
-Room.propTypes = {
-  room: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    zebra: PropTypes.string.isRequired,
-    images: PropTypes.arrayOf(PropTypes.string).isRequired,
-    price: PropTypes.number.isRequired
-  })
-};
+// Room.propTypes = {
+//   room: PropTypes.shape({
+//     name: PropTypes.string.isRequired,
+//     zebra: PropTypes.string.isRequired,
+//     images: PropTypes.arrayOf(PropTypes.string).isRequired,
+//     price: PropTypes.number.isRequired
+//   })
+// };

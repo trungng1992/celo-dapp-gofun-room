@@ -14,7 +14,9 @@ export default function RoomsList({ rooms }) {
             <div className="roomslist-center">
                 {
                     rooms.map(item => {
-                        return <Room key={item.id} room={item} />
+                        if (item.isBooking == 0) {
+                            return <Room key={item.id} room={item} />
+                        } 
                     })
                 }
             </div>

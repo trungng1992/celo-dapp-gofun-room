@@ -58,6 +58,9 @@ const Navbar = props => {
               <li>
                 <Link to="/add">Add</Link>
               </li>
+              <li>
+                <Link to="/history">History</Link>
+              </li>
             </ul>
             <div className="nav-header">
               <Link to="/">
