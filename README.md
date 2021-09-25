@@ -4,6 +4,9 @@
 
 GoFunApp is a simple dapp for sharing the room. It uses the celo network to make share applications. The users simply add the room which wanna sharing. The application only accepts the renter who has address a different owner address. If the room is booked, it does not show on list room. Thereout, the application will show the history of the rooms. 
 
+## Live Demo
+
+https://elastic-easley-2fcd4a.netlify.app
 ## Usage
 
 ### Requirements
