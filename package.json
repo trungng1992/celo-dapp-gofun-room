@@ -1,12 +1,11 @@
 {
   "name": "celo-dapp-gofun-room",
-  "homepage": "https://trungng1992.github.io/celo-dapp-gofun-room",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/helper-define-map": "^7.15.4",
     "@celo/contractkit": "^1.2.5",
     "bignumber.js": "^9.0.1",
-    "gh-pages": "^3.2.3",
     "react": "^16.8.6",
     "react-datepicker": "^4.2.1",
     "react-dom": "^16.8.6",
@@ -14,10 +13,11 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-table": "^7.7.0",
-    "styled-components": "^4.3.1"
+    "styled-components": "^4.3.1",
+    "web3": "^1.5.3"
   },
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
