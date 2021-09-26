@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import defaultImage from "../images/defaultBcg.jpeg";
-import PropTypes from "prop-types";
 
 export default function Room({ key, room }) {
   const { index, name, imageURL, price } = room;
-  let divStyle = {
-    width: "calc(0px + 100%)",
-  }
   return (
     <div>
       <div className="room-name-container">
@@ -30,12 +26,3 @@ export default function Room({ key, room }) {
     </div>
   );
 }
-
-// Room.propTypes = {
-//   room: PropTypes.shape({
-//     name: PropTypes.string.isRequired,
-//     zebra: PropTypes.string.isRequired,
-//     images: PropTypes.arrayOf(PropTypes.string).isRequired,
-//     price: PropTypes.number.isRequired
-//   })
-// };

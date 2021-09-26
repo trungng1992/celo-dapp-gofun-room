@@ -42,10 +42,6 @@ function Table({data}) {
         </div>
       )
     }
-
-    console.log(data)
-
-
     return (
         <section className="addroom-container">
             <div className="roomlist-center">

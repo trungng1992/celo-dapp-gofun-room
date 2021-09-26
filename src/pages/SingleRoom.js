@@ -35,7 +35,7 @@ export default class SingleRoom extends Component {
       )
     }
 
-    if (!room.isBook == true) {
+    if (room.isBooking == "false") {
       return (
         <div className="error">
           <h3>Uh Oh! This room is booked!</h3>
@@ -56,8 +56,7 @@ export default class SingleRoom extends Component {
       availableDate,
     } = room;
     
-    console.log(room);
-    const [mainImg, ...defaultImg] = imageURL;
+    const [mainImg] = imageURL;
 
     console.log(availableDate);
     let _availableDate = new Date(availableDate*1000);
