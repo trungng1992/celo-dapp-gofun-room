@@ -66,7 +66,7 @@ export default class SingleRoom extends Component {
 
     const bookHandler = (event) => {
       event.preventDefault();
-      this.props.rentRoom(BigNumber( room.price).shiftedBy(-ERC20_DECIMALS).toString(), key);
+      this.props.rentRoom( room.price, key);
     }
 
     return (
