@@ -22,11 +22,13 @@ import { newKitFromWeb3 } from "@celo/contractkit";
 import BigNumber from "bignumber.js";
 import BookingRoomAbi from "./contract/BookingRoom.abi.json";
 import erc20 from "./contract/erc20.abi.json";
+import { ERC20_DECIMALS } from './utils/utils';
 
-const ERC20_DECIMALS = 18;
+
+
 
 // const contractAddress = "0x86702e5343EFb9F4c1e24172F832dEc598A099ef";
-const contractAddress = "0xBEd21357A22AB95c38d22Fc03696FcA02396Af7c";
+const contractAddress = "0xC83C5C306B60300B1b312c5C179B1A1a32771531";
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
 
 function App() {
@@ -60,7 +62,7 @@ function App() {
         // web3 events
         let options = {
           fromBlock: 0,
-          address: ["0xBEd21357A22AB95c38d22Fc03696FcA02396Af7c"], //Only get events from specific addresses
+          address: ["0xC83C5C306B60300B1b312c5C179B1A1a32771531"], //Only get events from specific addresses
           topics: [], //What topics to subscribe to
         };
 
@@ -103,13 +105,17 @@ function App() {
           capacity: p[7],
           size: p[8],
           isBooking: p[9],
-          price: p[10],
+          price: new BigNumber(p[10]),
         });
       });
+      
       _rooms.push(_room)
+  
+
     }
 
     const rooms = await Promise.all(_rooms);
+    console.log({rooms})
     setRoom(rooms)
   }
 
@@ -127,7 +133,7 @@ function App() {
           name: p[2],
           availableDate: p[3],
           isBooking: p[4],
-          price: p[5],
+          price: new BigNumber( p[5]),
         });
       });
       _rooms.push(_room)
@@ -139,7 +145,7 @@ function App() {
 
   const getOneRoom = async (_index) => {
     try {
-      let p = await contract.methods.getInformationRoom(_index).call();
+      let p = await contract.methods.rooms(_index).call();
       return p
     } catch (error) {
       console.log(error)
@@ -159,15 +165,21 @@ function App() {
     _dateAvailable
   ) => {
     try {
-      console.log(_imageURL);
       const price = new BigNumber(_price).shiftedBy(ERC20_DECIMALS).toString();
 
       const arrImageURL = _imageURL.split(",");
       const dateTimeStamp = parseInt(Date.parse(_dateAvailable)/1000);
 
-      console.log(dateTimeStamp);
-      console.log(typeof(dateTimeStamp));
-
+      console.log({  _name,
+        arrImageURL,
+        _description,
+        _services,
+        _category,
+        _size,
+        price,
+        _capacity,
+        dateTimeStamp});
+  
       await contract.methods
         .addRoom(
           _name,

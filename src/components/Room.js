@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import defaultImage from "../images/defaultBcg.jpeg";
 import PropTypes from "prop-types";
+import BigNumber from "bignumber.js";
+import { ERC20_DECIMALS } from "../utils/utils";
 
 export default function Room({ key, room }) {
   const { index, name, imageURL, price } = room;
@@ -11,14 +13,16 @@ export default function Room({ key, room }) {
   return (
     <div>
       <div className="room-name-container">
-        <div className="room-info">{name} <p>Starting at: ${price / 1000000000000000000}</p></div>
+        <div className="room-info">{name} <p>Starting at: ${BigNumber(price)
+        .shiftedBy(-ERC20_DECIMALS)
+        .toString()}</p></div>
 
       </div>
       <article className="room">
         <Link to={`/rooms/${index}`} className="cta line--link-animation" >
 
           <div className="img-container">
-            <img src={imageURL[0] || defaultImage} alt="single project" />
+            <img src={imageURL || imageURL[0] || defaultImage} alt="single project" />
 
           </div>
           <div className="explore-btn">
