@@ -2,6 +2,7 @@ import React from 'react'
 import Room from './Room'
 
 export default function RoomsList({ rooms }) {
+    console.log({rooms})
     if (rooms.length == 0) {
         return (
             <div className="empty-search">
@@ -14,7 +15,8 @@ export default function RoomsList({ rooms }) {
             <div className="roomslist-center">
                 {
                     rooms.map(item => {
-                        if (item.isBooking == 0) {
+                        if (!item.isBooking) {
+                            
                             return <Room key={item.id} room={item} />
                         } 
                     })

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0
+
 pragma solidity >=0.7.0 <0.9.0;
 
 interface IERC20Token {
@@ -31,13 +33,15 @@ contract BookRoom {
     }
     
     uint256 roomLength = 0;
-    address internal cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
+
+    // address of the cusd token
+    address internal cUsdTokenAddress ;
 
     // owner room address
     address ownerAddress;
     
     // map slice for Room
-    mapping (uint => Room) internal rooms;
+    mapping (uint => Room) public rooms;
     
     // check owner of room
     modifier isAdmin(){
@@ -57,6 +61,7 @@ contract BookRoom {
     // constructor
     constructor() {
         ownerAddress = msg.sender;
+        cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
     }
     
     function addRoom(
@@ -72,6 +77,7 @@ contract BookRoom {
     ) public {
         
         require(_price > 0, "Please enter a valid price");
+        require(_dateAvailable > block.timestamp, "Enter a valid available date");
         
         rooms[roomLength] = Room(
             payable(msg.sender),
@@ -90,6 +96,8 @@ contract BookRoom {
         
         roomLength++;
     }
+    
+    // making rooms public creates this function automatically
     
     function getInformationRoom(uint _index) public view returns (
         address payable,
@@ -150,6 +158,9 @@ contract BookRoom {
         string[] memory _imageRoom,
         uint _price
     ) public {
+
+        require(_timestamp > block.timestamp, "Please enter a valid available date");
+        require(_price > 0, "Please enter a valid price");
         rooms[_index].dayAvailable = _timestamp;
         rooms[_index].imageURL = _imageRoom;
         rooms[_index].price = _price;

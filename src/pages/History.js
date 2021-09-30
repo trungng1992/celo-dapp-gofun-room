@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
+import BigNumber from 'bignumber.js';
+import { ERC20_DECIMALS } from '../utils/utils';
 
 const Styles = styled.div`
   padding: 1rem;
@@ -43,7 +45,7 @@ function Table({data}) {
       )
     }
 
-    console.log(data)
+    console.log({data})
 
 
     return (
@@ -59,7 +61,7 @@ function Table({data}) {
                                 <th>Cost</th>
                                 <th>Booking</th>
                                 <th>Date</th>
-                                <th>Renter Address Address</th>
+                                <th>Renter's Address</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,8 +69,8 @@ function Table({data}) {
                               <tr>
                                 <td>{room.index}</td>
                                 <td>{room.name}</td>
-                                <td>$ {room.price/1000000000000000000}</td>
-                                <td>{room.isBooking == 0 ? "No" : "Yes"}</td>
+                                <td>$ {BigNumber(room.price).shiftedBy(-ERC20_DECIMALS).toString()}</td>
+                                <td>{room.isBooking ? "No" : "Yes"}</td>
                                 <td>{(new Date(room.availableDate*1000)).toLocaleDateString("en-US")}</td>
                                 <td>{room.renter}</td>
                               </tr>

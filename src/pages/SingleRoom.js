@@ -8,6 +8,8 @@ import StyledHero from "../components/StyledHero";
 import room2 from "../images/details-1.jpeg";
 import room3 from "../images/details-3.jpeg";
 import room4 from "../images/details-4.jpeg";
+import BigNumber from "bignumber.js";
+import { ERC20_DECIMALS } from "../utils/utils";
 
 export default class SingleRoom extends Component {
   constructor(props) {
@@ -64,7 +66,7 @@ export default class SingleRoom extends Component {
 
     const bookHandler = (event) => {
       event.preventDefault();
-      this.props.rentRoom(room.price/1000000000000000000, key);
+      this.props.rentRoom( room.price, key);
     }
 
     return (
@@ -90,7 +92,7 @@ export default class SingleRoom extends Component {
             </article>
             <article className="info">
               <h3>Info</h3>
-              <h6>Price : ${price/1000000000000000000} USD</h6>
+              <h6>Price : ${price.toString()} USD</h6>
               <h6>Size : {size} sq. ft.</h6>
               <h6>
                 max capacity :{" "}
