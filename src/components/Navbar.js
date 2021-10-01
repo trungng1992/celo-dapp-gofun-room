@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { FaBars, FaWallet } from "react-icons/fa";
+import { FaWallet } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -34,8 +34,6 @@ const Navbar = props => {
             setButton(true);
         }
     }
-
-    const handleToggle = () => setIsOpen(!isOpen);
 
     useEffect(() => {
         showButton();
@@ -82,11 +80,7 @@ const Navbar = props => {
               }
               
             </ul>
-            {/* <button type="button" className="nav-btn" onClick={handleToggle}>
-              asdasdsd
-            </button> */}
-  
-  
+
           </div>
         </nav>
     );

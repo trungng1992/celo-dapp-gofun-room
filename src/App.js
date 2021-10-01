@@ -5,7 +5,6 @@ import "./App.css";
 import Home from "./pages/Home";
 import Rooms from "./pages/Rooms";
 import SingleRoom from "./pages/SingleRoom";
-import EditDate from "./pages/EditDate";
 import History from "./pages/History";
 import Add from "./pages/Add";
 
@@ -25,7 +24,6 @@ import erc20 from "./contract/erc20.abi.json";
 
 const ERC20_DECIMALS = 18;
 
-// const contractAddress = "0x86702e5343EFb9F4c1e24172F832dEc598A099ef";
 const contractAddress = "0xBEd21357A22AB95c38d22Fc03696FcA02396Af7c";
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1";
 
@@ -55,7 +53,6 @@ function App() {
         console.log(user_address);
 
         await setKit(kit);
-        // console.log(kit)
 
         // web3 events
         let options = {
@@ -115,7 +112,6 @@ function App() {
 
   const getHistory = async function() {
     let _roomLength = await contract.methods.getRoomBookingLength().call();
-
     var _rooms = [];
     for (let i=0; i < _roomLength; i++) {
       let _room = new Promise(async (resolve, reject) => {
@@ -137,15 +133,6 @@ function App() {
     setHistoryRoom(rooms);
   }
 
-  const getOneRoom = async (_index) => {
-    try {
-      let p = await contract.methods.getInformationRoom(_index).call();
-      return p
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   const addToRoom = async (
     _name,
     _imageURL,
@@ -159,14 +146,10 @@ function App() {
     _dateAvailable
   ) => {
     try {
-      console.log(_imageURL);
       const price = new BigNumber(_price).shiftedBy(ERC20_DECIMALS).toString();
 
       const arrImageURL = _imageURL.split(",");
       const dateTimeStamp = parseInt(Date.parse(_dateAvailable)/1000);
-
-      console.log(dateTimeStamp);
-      console.log(typeof(dateTimeStamp));
 
       await contract.methods
         .addRoom(
@@ -206,22 +189,6 @@ function App() {
       getBalance();
       getRooms();
       getHistory();
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const editRoom = async(_date, _image, _price , _index) => {
-    try {
-      console.log(_image);
-      const price = new BigNumber(_price).shiftedBy(ERC20_DECIMALS).toString();
-      const arrImageURL = _image.split(",");
-
-      const dateTimeStamp = Date.parse(_date)/1000;
-
-      console.log(dateTimeStamp);
-      // await contract.methods.editAvailableDate(_index, dateTimeStamp, arrImageURL, price).send({from: address});
-      getRooms()
     } catch (error) {
       console.log(error)
     }
